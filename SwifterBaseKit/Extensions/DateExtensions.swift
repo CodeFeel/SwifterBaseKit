@@ -248,26 +248,33 @@ public extension Date {
     
     /// 获取当前时间戳 精确到毫秒
     static func getMilliTimestamp() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss SSS"
-        let datetime = CLongLong(round(Date().timeIntervalSince1970 * 1000))
+        // 以秒为单位返回当前时间与系统格林尼治时间的差
+        let secGMT = TimeZone.current.secondsFromGMT()
+        // 把差的时间加上,就是当前系统准确的时间
+        let systemDate = Date().addingTimeInterval(Double(secGMT))
+        let datetime = CLongLong(round(systemDate.timeIntervalSince1970 * 1000))
         return "\(datetime)"
     }
     
     /// 获取当前时间戳 精确到秒
     static func getSecTimestamp() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-        let datetime = CLongLong(round(Date().timeIntervalSince1970))
+        // 以秒为单位返回当前时间与系统格林尼治时间的差
+        let secGMT = TimeZone.current.secondsFromGMT()
+        // 把差的时间加上,就是当前系统准确的时间
+        let systemDate = Date().addingTimeInterval(Double(secGMT))
+        let datetime = CLongLong(round(systemDate.timeIntervalSince1970))
         return "\(datetime)"
     }
     
-    /// 如果13位时间戳，格式要加上毫秒
+    /// 如果是13位，那timestamp需要/1000
     static func timeIntervalToTime(_ timestamp: Double, _ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
-        let date:Date = Date.init(timeIntervalSince1970: timestamp)
+        // 以秒为单位返回当前时间与系统格林尼治时间的差
+        let secGMT = TimeZone.current.secondsFromGMT()
+        // 时间戳减去差值就是当前系统准确的时间
+        let systemStamp = timestamp - Double(secGMT)
+        let date = Date.init(timeIntervalSince1970: systemStamp)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatter
-        dateFormatter.locale = Locale.current
         return dateFormatter.string(from: date as Date)
     }
        
