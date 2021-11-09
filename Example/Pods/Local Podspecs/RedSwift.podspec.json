@@ -1,0 +1,36 @@
+{
+  "name": "RedSwift",
+  "version": "0.1.0",
+  "summary": "Project commonly used libraries.",
+  "description": "RedSwift is a collection of native Swift extensions, with convenient methods, syntactic sugar and targeting various primitive data types.",
+  "homepage": "https://github.com/CodeFeel/RedSwift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Red": "18665356117@163.com"
+  },
+  "source": {
+    "git": "https://github.com/CodeFeel/RedSwift.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.3",
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "5.3"
+  },
+  "source_files": "RedSwift/*/*.swift",
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ],
+  "dependencies": {
+    "KeychainAccess": [
+
+    ]
+  },
+  "swift_version": "5.3"
+}
