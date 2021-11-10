@@ -8,17 +8,17 @@
 import Foundation
 import UIKit
 
-let kScreenWidth = UIScreen.main.bounds.size.width
-let kScreenHeight = UIScreen.main.bounds.size.height
-let kScreenScale = UIScreen.main.scale
-let kAppWindow = UIApplication.shared.delegate!.window!!
-let kLastWindow = UIApplication.shared.windows.last!
+public let kScreenWidth = UIScreen.main.bounds.size.width
+public let kScreenHeight = UIScreen.main.bounds.size.height
+public let kScreenScale = UIScreen.main.scale
+public let kAppWindow = UIApplication.shared.delegate!.window!!
+public let kLastWindow = UIApplication.shared.windows.last!
 
-let kReferenceW = kScreenWidth / 375.0
-let kReferenceH = kScreenHeight / 667.0
+public let kReferenceW = kScreenWidth / 375.0
+public let kReferenceH = kScreenHeight / 667.0
 
 /// 状态栏高度
-var kScreenStatusHeight : CGFloat {
+public var kScreenStatusHeight : CGFloat {
     if #available(iOS 13.0, *) {
         return UIApplication.shared.statusBarFrame.height
     }
@@ -26,11 +26,11 @@ var kScreenStatusHeight : CGFloat {
 }
 
 /// 导航栏高度
-let kSafeAreaTopHeight : CGFloat = Int(kScreenStatusHeight) > 20 ? 88.0 : 64.0
+public let kSafeAreaTopHeight : CGFloat = Int(kScreenStatusHeight) > 20 ? 88.0 : 64.0
 /// tab高度
-let kTabBarHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 83 : 49
+public let kTabBarHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 83 : 49
 /// tab距离底部高度
-let kSafeAreaBottomHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 34 : 0
+public let kSafeAreaBottomHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 34 : 0
 
 /// 沙盒路径
 public struct kDirectoryPath {
