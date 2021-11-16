@@ -248,9 +248,9 @@ public extension UIView {
     /// - Parameters:
     ///   - corners: array of corners to change (example: [.bottomLeft, .topRight]).
     ///   - radius: radius for selected corners.
-    func roundCorners(_ rect: CGRect? = nil, _ corners: UIRectCorner, radius: CGFloat) {
+    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let maskPath = UIBezierPath(
-            roundedRect: rect ?? bounds,
+            roundedRect: bounds,
             byRoundingCorners: corners,
             cornerRadii: CGSize(width: radius, height: radius))
         

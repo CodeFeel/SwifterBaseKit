@@ -34,11 +34,11 @@ public let kSafeAreaBottomHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 34 :
 
 /// 沙盒路径
 public struct kDirectoryPath {
-    static let Home = NSHomeDirectory()
-    static let Documents = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true).last!
-    static let Library = NSSearchPathForDirectoriesInDomains(.libraryDirectory,.userDomainMask, true).last!
-    static let Tmp = NSTemporaryDirectory()
-    static let Caches = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true).last!
+    public static let Home = NSHomeDirectory()
+    public static let Documents = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true).last!
+    public static let Library = NSSearchPathForDirectoriesInDomains(.libraryDirectory,.userDomainMask, true).last!
+    public static let Tmp = NSTemporaryDirectory()
+    public static let Caches = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true).last!
 }
 
 /// 版本信息

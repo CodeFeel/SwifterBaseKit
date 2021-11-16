@@ -10,8 +10,8 @@ import Foundation
 public struct Storage {
     
     //zh-Hans  en  ja  ko
-    enum Language : UD {
-        typealias Element = String
+    public enum Language : UD {
+        public typealias Element = String
         case language
     }
 }

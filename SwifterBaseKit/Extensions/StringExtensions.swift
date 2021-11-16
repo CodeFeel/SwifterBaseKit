@@ -444,7 +444,7 @@ public extension String {
     }
 }
 
-extension String {
+public extension String {
     
     static func zeroValue(_ value: String) -> String {
         var testNumber = value
