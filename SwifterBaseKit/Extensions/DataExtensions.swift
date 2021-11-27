@@ -117,6 +117,18 @@ public extension Data {
 
 public extension Data {
     
+    /// 移除第0开始的字节
+    func removeZeroAtEnd() -> Data {
+        if let index = self.firstIndex(of: 0) {
+            if index == 0 {
+                return Data()
+            }else {
+                return Data(self[0...index-1])
+            }
+        }
+        return self
+    }
+    
     /// String by encoding Data using the given encoding (if applicable).
     func string(encoding: String.Encoding) -> String? {
         return String(data: self, encoding: encoding)

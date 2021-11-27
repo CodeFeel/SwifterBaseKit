@@ -38,6 +38,7 @@
 		812F7716273A1F8F0062D775 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76F9273A1F8F0062D775 /* Localize.swift */; };
 		812F7717273A1F8F0062D775 /* Fitsize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76FA273A1F8F0062D775 /* Fitsize.swift */; };
 		812F7718273A1F8F0062D775 /* Asyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76FB273A1F8F0062D775 /* Asyncs.swift */; };
+		815C9A4527520B8D00FAE9DC /* GradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		812F76F9273A1F8F0062D775 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		812F76FA273A1F8F0062D775 /* Fitsize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitsize.swift; sourceTree = "<group>"; };
 		812F76FB273A1F8F0062D775 /* Asyncs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asyncs.swift; sourceTree = "<group>"; };
+		815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				812F76F1273A1F8F0062D775 /* IntExtensions.swift */,
 				812F76F2273A1F8F0062D775 /* DateExtensions.swift */,
 				812F76F3273A1F8F0062D775 /* TextViewExtensions.swift */,
+				815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				812F770A273A1F8F0062D775 /* ImageViewExtensions.swift in Sources */,
 				812F7710273A1F8F0062D775 /* DateExtensions.swift in Sources */,
 				812F7703273A1F8F0062D775 /* UserDefaultsExtensions.swift in Sources */,
+				815C9A4527520B8D00FAE9DC /* GradientExtensions.swift in Sources */,
 				812F76FC273A1F8F0062D775 /* BarButtonItemExtensions.swift in Sources */,
 				812F7700273A1F8F0062D775 /* FloatExtensions.swift in Sources */,
 				812F770D273A1F8F0062D775 /* DoubleExtensions.swift in Sources */,
@@ -412,7 +416,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanin.SwifterBaseKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -441,7 +445,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanin.SwifterBaseKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

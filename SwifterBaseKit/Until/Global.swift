@@ -20,9 +20,13 @@ public let kReferenceH = kScreenHeight / 667.0
 /// 状态栏高度
 public var kScreenStatusHeight : CGFloat {
     if #available(iOS 13.0, *) {
-        return UIApplication.shared.statusBarFrame.height
+        if let barHeight = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height {
+            return barHeight
+        }
+        return 44.0
     }
     return UIApplication.shared.statusBarFrame.height
+    
 }
 
 /// 导航栏高度
@@ -31,6 +35,9 @@ public let kSafeAreaTopHeight : CGFloat = Int(kScreenStatusHeight) > 20 ? 88.0 :
 public let kTabBarHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 83 : 49
 /// tab距离底部高度
 public let kSafeAreaBottomHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 34 : 0
+
+/// 差值
+public let kSafeDiffHeight: CGFloat = Int(kScreenStatusHeight) > 20 ? 24 : 0
 
 /// 沙盒路径
 public struct kDirectoryPath {
