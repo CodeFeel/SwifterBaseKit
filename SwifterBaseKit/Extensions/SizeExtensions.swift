@@ -10,6 +10,14 @@ import UIKit
 
 public extension CGSize {
     
+    var ratio: CGFloat {
+        
+        return width/height
+    }
+}
+    
+public extension CGSize {
+    
     /// Aspect fit CGSize.
     ///
     ///     let rect = CGSize(width: 120, height: 80)
