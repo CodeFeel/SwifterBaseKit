@@ -377,6 +377,178 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return rotatedImage
     }
+    
+    // 修复转向
+    func fixOrientation() -> UIImage {
+        if self.imageOrientation == .up {
+            return self
+        }
+        
+        var transform = CGAffineTransform.identity
+        
+        switch self.imageOrientation {
+        case .down, .downMirrored:
+            transform = CGAffineTransform(translationX: self.size.width, y: self.size.height)
+            transform = transform.rotated(by: .pi)
+        
+        case .left, .leftMirrored:
+            transform = CGAffineTransform(translationX: self.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2)
+            
+        case .right, .rightMirrored:
+            transform = CGAffineTransform(translationX: 0, y: self.size.height)
+            transform = transform.rotated(by: -CGFloat.pi / 2)
+            
+        default:
+            break
+        }
+        
+        switch self.imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: self.size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        
+        default:
+            break
+        }
+        
+        guard let ci = self.cgImage, let colorSpace = ci.colorSpace else {
+            return self
+        }
+        let context = CGContext(data: nil, width: Int(self.size.width), height: Int(self.size.height), bitsPerComponent: ci.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: ci.bitmapInfo.rawValue)
+        context?.concatenate(transform)
+        switch self.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context?.draw(ci, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
+        default:
+            context?.draw(ci, in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        }
+        
+        guard let newCgimg = context?.makeImage() else {
+            return self
+        }
+        return UIImage(cgImage: newCgimg)
+    }
+    
+    // 加马赛克
+    func mosaicImage() -> UIImage? {
+        guard let currCgImage = self.cgImage else {
+            return nil
+        }
+        
+        let currCiImage = CIImage(cgImage: currCgImage)
+        let filter = CIFilter(name: "CIPixellate")
+        filter?.setValue(currCiImage, forKey: kCIInputImageKey)
+        filter?.setValue(20, forKey: kCIInputScaleKey)
+        guard let outputImage = filter?.outputImage else { return nil }
+        
+        let context = CIContext()
+        
+        if let cgImg = context.createCGImage(outputImage, from: CGRect(origin: .zero, size: self.size)) {
+            return UIImage(cgImage: cgImg)
+        } else {
+            return nil
+        }
+    }
+    
+    // 旋转方向
+    func rotate(orientation: UIImage.Orientation) -> UIImage {
+        guard let imagRef = self.cgImage else {
+            return self
+        }
+        let rect = CGRect(origin: .zero, size: CGSize(width: CGFloat(imagRef.width), height: CGFloat(imagRef.height)))
+        
+        var bnds = rect
+        
+        var transform = CGAffineTransform.identity
+        
+        switch orientation {
+        case .up:
+            return self
+        case .upMirrored:
+            transform = transform.translatedBy(x: rect.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .down:
+            transform = transform.translatedBy(x: rect.width, y: rect.height)
+            transform = transform.rotated(by: .pi)
+        case .downMirrored:
+            transform = transform.translatedBy(x: 0, y: rect.height)
+            transform = transform.scaledBy(x: 1, y: -1)
+        case .left:
+            bnds = swapRectWidthAndHeight(bnds)
+            transform = transform.translatedBy(x: 0, y: rect.width)
+            transform = transform.rotated(by: CGFloat.pi * 3 / 2)
+        case .leftMirrored:
+            bnds = swapRectWidthAndHeight(bnds)
+            transform = transform.translatedBy(x: rect.height, y: rect.width)
+            transform = transform.scaledBy(x: -1, y: 1)
+            transform = transform.rotated(by: CGFloat.pi * 3 / 2)
+        case .right:
+            bnds = swapRectWidthAndHeight(bnds)
+            transform = transform.translatedBy(x: rect.height, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2)
+        case .rightMirrored:
+            bnds = swapRectWidthAndHeight(bnds)
+            transform = transform.scaledBy(x: -1, y: 1)
+            transform = transform.rotated(by: CGFloat.pi / 2)
+        @unknown default:
+            return self
+        }
+        
+        UIGraphicsBeginImageContext(bnds.size)
+        let context = UIGraphicsGetCurrentContext()
+        switch orientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context?.scaleBy(x: -1, y: 1)
+            context?.translateBy(x: -rect.height, y: 0)
+        default:
+            context?.scaleBy(x: 1, y: -1)
+            context?.translateBy(x: 0, y: -rect.height)
+        }
+        context?.concatenate(transform)
+        context?.draw(imagRef, in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage ?? self
+    }
+    
+    func swapRectWidthAndHeight(_ rect: CGRect) -> CGRect {
+        var r = rect
+        r.size.width = rect.height
+        r.size.height = rect.width
+        return r
+    }
+    
+    func blurImage(level: CGFloat) -> UIImage? {
+        guard let ciImage = self.toCIImage() else {
+            return nil
+        }
+        let blurFilter = CIFilter(name: "CIGaussianBlur")
+        blurFilter?.setValue(ciImage, forKey: "inputImage")
+        blurFilter?.setValue(level, forKey: "inputRadius")
+        
+        guard let outputImage = blurFilter?.outputImage else {
+            return nil
+        }
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(outputImage, from: ciImage.extent) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
+    }
+    
+    func toCIImage() -> CIImage? {
+        var ci = self.ciImage
+        if ci == nil, let cg = self.cgImage {
+            ci = CIImage(cgImage: cg)
+        }
+        return ci
+    }
 }
 
 public extension UIImage {
@@ -398,6 +570,18 @@ public extension UIImage {
             return
         }
         self.init(cgImage: aCgImage)
+    }
+    
+}
+
+public extension CIImage {
+    
+    func toUIImage() -> UIImage? {
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(self, from: self.extent) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
     }
     
 }
