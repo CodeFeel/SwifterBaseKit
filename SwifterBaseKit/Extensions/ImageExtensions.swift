@@ -549,6 +549,24 @@ public extension UIImage {
         }
         return ci
     }
+    
+    /// 水平翻转
+    func flipImage(_ flip: Bool) -> UIImage {
+        let size = CGSize.init(width: pixelWidth, height: pixelHeight)
+        UIGraphicsBeginImageContextWithOptions(size, true, 1)
+        let ctx = UIGraphicsGetCurrentContext()!
+        if flip {
+            ctx.translateBy(x: size.width, y: 0)
+            ctx.scaleBy(x: -1, y: 1)
+        }else {
+            ctx.translateBy(x: 0, y: size.height)
+            ctx.scaleBy(x: 1, y: -1)
+        }
+        draw(in: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: pixelWidth, height: pixelHeight)))
+        let result = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
 
 public extension UIImage {

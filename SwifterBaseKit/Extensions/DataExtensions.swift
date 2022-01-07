@@ -55,6 +55,10 @@ public extension Data {
         return self.map({String.init(format: "%02x", $0)})
     }
     
+    func hexJoin() -> String {
+        return map { String(format: "%02x", $0) }.joined()
+    }
+    
     // BOM:
     // 00 00 fe ff  utf32-BE
     // ff fe 00 00  utf32-LE

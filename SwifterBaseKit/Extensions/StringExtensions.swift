@@ -66,8 +66,8 @@ public extension String {
     /// - Throws: 字符串存在非十六进制字符错误
     func hexStringToData() throws -> Data {
         var data = Data()
-        var temp = self.replacingOccurrences(of: "/n", with: "")
-        temp = temp.replacingOccurrences(of: "/r", with: "")
+        var temp = self.replacingOccurrences(of: "\n", with: "")
+        temp = temp.replacingOccurrences(of: "\r", with: "")
         temp = temp.replacingOccurrences(of: " ", with: "")
         for i in 0..<temp.count/2 {
             let sub = (temp as NSString).substring(with: NSRange.init(location: 2*i, length: 2))
@@ -75,6 +75,26 @@ public extension String {
                 data.append(result)
             }else {
                 throw RsError.hexStringToDataOverflowoutCharacter
+            }
+        }
+        return data
+    }
+    
+    /// 16进制字符串转data
+    func hexadecimalData() -> Data? {
+        
+        if self.isEmpty {
+            return nil
+        }
+        var temp = self.replacingOccurrences(of: "\n", with: "")
+        temp = temp.replacingOccurrences(of: "\r", with: "")
+        temp = temp.replacingOccurrences(of: " ", with: "")
+        
+        var data = Data()
+        for i in 0..<temp.count/2 {
+            let sub = (temp as NSString).substring(with: NSRange(location: 2*i, length: 2))
+            if let result = UInt8.init(sub, radix: 16) {
+                data.append(result)
             }
         }
         return data

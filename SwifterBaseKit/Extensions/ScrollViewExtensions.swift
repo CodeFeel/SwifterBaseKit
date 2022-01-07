@@ -10,19 +10,49 @@ import UIKit
 
 public extension UIScrollView {
     
-    /// Takes a snapshot of an entire ScrollView
+    /// UIGraphics
     var snapshot: UIImage? {
-        UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
-        defer {
-            UIGraphicsEndImageContext()
+        
+        autoreleasepool {
+            let lastContentOffset = self.contentOffset
+            let lastFrame = self.frame
+            self.contentOffset = .zero
+            self.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: self.contentSize.height)
+            
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: self.contentSize.width, height: floor(self.contentSize.height)), false, 0)
+            defer {
+                self.contentOffset = lastContentOffset
+                self.frame = lastFrame
+                UIGraphicsEndImageContext()
+            }
+            guard let context = UIGraphicsGetCurrentContext() else { return nil }
+            layer.render(in: context)
+            return UIGraphicsGetImageFromCurrentImageContext()
         }
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        let previousFrame = frame
-        frame = CGRect(origin: frame.origin, size: contentSize)
-        layer.render(in: context)
-        frame = previousFrame
-        return UIGraphicsGetImageFromCurrentImageContext()
     }
+    
+    /// CoreGraphics
+    var longSnapshotImage: UIImage? {
+        var resultImage = UIImage()
+        let lastContentOffset = self.contentOffset
+        let lastFrame = self.frame
+        self.contentOffset = .zero
+        self.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: self.contentSize.height)
+        
+        let imageBuffer = malloc(4 * Int(ceil(self.contentSize.width)) * Int(ceil(self.contentSize.height)))
+        
+        if let context = CGContext.init(data: imageBuffer, width: Int(ceil(self.contentSize.width)), height: Int(ceil(self.contentSize.height)), bitsPerComponent: 8, bytesPerRow: Int(ceil(self.contentSize.width)) * 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) {
+            context.translateBy(x: 0, y: self.contentSize.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+            layer.render(in: context)
+            if let cgImage = context.makeImage() {
+                resultImage =  UIImage(cgImage: cgImage)
+            }
+        }
+        free(imageBuffer)
+        return resultImage
+    }
+    
 }
 
 public extension UIScrollView {
