@@ -510,9 +510,15 @@ extension String : LocalizedBundle {
         let bundle: Bundle = bundle ?? .main
         if let path = bundle.path(forResource: Localize.language.rawValue, ofType: "lproj"),
            let bundle = Bundle(path: path) {
+            if bundle.localizedString(forKey: self, value: nil, table: tableName).isEmpty {
+                return self
+            }
             return bundle.localizedString(forKey: self, value: nil, table: tableName)
         }else if let path = bundle.path(forResource: "Base", ofType: "lproj"),
                  let bundle = Bundle(path: path) {
+            if bundle.localizedString(forKey: self, value: nil, table: tableName).isEmpty {
+                return self
+            }
             return bundle.localizedString(forKey: self, value: nil, table: tableName)
         }
         return self
