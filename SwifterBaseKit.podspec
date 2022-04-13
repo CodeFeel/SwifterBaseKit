@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwifterBaseKit'
-  s.version          = '0.3.0'
+  s.version          = '0.3.1'
   s.summary          = 'Project commonly used libraries.'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ RedSwift is a collection of native Swift extensions, with convenient methods, sy
   s.source           = { :git => 'https://github.com/CodeFeel/SwifterBaseKit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.0'
   s.swift_version = '5.3'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.3' }
   s.source_files  = "SwifterBaseKit/*/*.swift"
