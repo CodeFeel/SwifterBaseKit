@@ -37,9 +37,15 @@ public struct Localize {
     public static func defaultLanguage() -> String {
         
         var defaultLanguage = LanguageType.en.rawValue
-        guard var preferredLanguage = Locale.current.identifier.components(separatedBy: "_").first else {
+        guard let temp = Locale.preferredLanguages.first else {
             return defaultLanguage
         }
+        guard var preferredLanguage = temp.components(separatedBy: "-").first else {
+            return defaultLanguage
+        }
+//        guard var preferredLanguage = Locale.current.identifier.components(separatedBy: "_").first else {
+//            return defaultLanguage
+//        }
         /// 将zh-Hant zh变成本地的zh-Hans
         if preferredLanguage == "zh-Hant" || preferredLanguage == "zh" {
             preferredLanguage = "zh-Hans"
