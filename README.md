@@ -24,7 +24,7 @@ RedSwift is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SwifterBaseKit', '~> 0.3.3'
+pod 'SwifterBaseKit', '~> 0.3.4'
 ```
 
 

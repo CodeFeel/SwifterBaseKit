@@ -50,9 +50,11 @@ public struct kDirectoryPath {
 
 /// 版本信息
 public struct kAppInfo {
-    public static var version = { Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String }()
-    public static var bundleId = { Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String }()
-    public static var displayName = { Bundle.main.localizedInfoDictionary!["CFBundleDisplayName"] as! String }()
+    public static var version = { Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "" }()
+    public static var bundleId = { Bundle.main.infoDictionary!["CFBundleIdentifier"] as? String ?? "" }()
+    public static var displayName: String = {
+        Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as? String ?? Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
+    }()
     public static var kUUID =  UIDevice.current.identifierForVendor?.uuidString.replacingOccurrences(of: "-", with: "")
     public static var systemVersion = UIDevice.current.systemVersion
 }

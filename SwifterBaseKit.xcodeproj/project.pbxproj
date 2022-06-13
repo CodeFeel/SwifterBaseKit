@@ -38,6 +38,7 @@
 		812F7716273A1F8F0062D775 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76F9273A1F8F0062D775 /* Localize.swift */; };
 		812F7717273A1F8F0062D775 /* Fitsize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76FA273A1F8F0062D775 /* Fitsize.swift */; };
 		812F7718273A1F8F0062D775 /* Asyncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F76FB273A1F8F0062D775 /* Asyncs.swift */; };
+		8141591B28572F0100DD737C /* ObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141591A28572F0100DD737C /* ObjectExtensions.swift */; };
 		815832FD281239A2004413D6 /* TimerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815832FC281239A2004413D6 /* TimerExtensions.swift */; };
 		815C9A4527520B8D00FAE9DC /* GradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		812F76F9273A1F8F0062D775 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		812F76FA273A1F8F0062D775 /* Fitsize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitsize.swift; sourceTree = "<group>"; };
 		812F76FB273A1F8F0062D775 /* Asyncs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asyncs.swift; sourceTree = "<group>"; };
+		8141591A28572F0100DD737C /* ObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectExtensions.swift; sourceTree = "<group>"; };
 		815832FC281239A2004413D6 /* TimerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerExtensions.swift; sourceTree = "<group>"; };
 		815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +146,7 @@
 				812F76F3273A1F8F0062D775 /* TextViewExtensions.swift */,
 				815C9A4427520B8D00FAE9DC /* GradientExtensions.swift */,
 				815832FC281239A2004413D6 /* TimerExtensions.swift */,
+				8141591A28572F0100DD737C /* ObjectExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				812F770A273A1F8F0062D775 /* ImageViewExtensions.swift in Sources */,
 				812F7710273A1F8F0062D775 /* DateExtensions.swift in Sources */,
 				812F7703273A1F8F0062D775 /* UserDefaultsExtensions.swift in Sources */,
+				8141591B28572F0100DD737C /* ObjectExtensions.swift in Sources */,
 				815C9A4527520B8D00FAE9DC /* GradientExtensions.swift in Sources */,
 				812F76FC273A1F8F0062D775 /* BarButtonItemExtensions.swift in Sources */,
 				812F7700273A1F8F0062D775 /* FloatExtensions.swift in Sources */,
@@ -420,7 +424,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanin.SwifterBaseKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -449,7 +453,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanin.SwifterBaseKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

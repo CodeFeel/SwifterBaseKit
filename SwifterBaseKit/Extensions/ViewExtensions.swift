@@ -482,3 +482,66 @@ public extension UIView {
         self.layer.addSublayer(layer)
     }
 }
+
+/// 扩大手势范围
+public extension UIView {
+    
+    private static var swizzled = false
+    
+    private struct Key {
+        static var TouchEdgeInsetKey = 0
+    }
+    
+    var touchEdgeInset: UIEdgeInsets? {
+        get {
+            return objc_getAssociatedObject(self, &Key.TouchEdgeInsetKey) as? UIEdgeInsets
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &Key.TouchEdgeInsetKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    static func swizzlePointInsideMethod() {
+        guard Thread.isMainThread else { return }
+        if swizzled { return }
+         swizzled = true
+        
+        if let oldMethod = class_getInstanceMethod(self, #selector(point(inside:with:))),
+            let newMethod = class_getInstanceMethod(self, #selector(wc_point(inside:with:))) {
+            method_exchangeImplementations(oldMethod, newMethod)
+        }
+    }
+    
+    @objc func wc_point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if let inset = touchEdgeInset {
+            let rect = bounds.insetBy(edgeInset: inset)
+            return rect.contains(point)
+        }else {
+            return self.wc_point(inside: point, with: event)
+        }
+    }
+}
+
+public extension UIView {
+    
+    class func fromNib(_ bundle : Bundle = .main) -> Self {
+        
+        guard let nib = bundle.loadNibNamed(className, owner: nil, options: nil) else {
+            return Self()
+        }
+        guard let instantiate = nib.first as? Self else {
+            return Self()
+        }
+        return instantiate
+    }
+    
+    static func loadNib(_ bundle : Bundle = .main) -> UINib? {
+        
+        let hasNib: Bool = bundle.path(forResource: className, ofType: "nib") != nil
+        guard hasNib else {
+            return nil
+        }
+        return UINib(nibName: "\(self)", bundle: bundle)
+    }
+}
