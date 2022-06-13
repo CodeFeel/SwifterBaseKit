@@ -1,5 +1,5 @@
 PODS:
-  - SwifterBaseKit (0.3.0)
+  - SwifterBaseKit (0.3.4)
 
 DEPENDENCIES:
   - SwifterBaseKit (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwifterBaseKit: d33e566d541e2445686ec695309d86cc458aaec3
+  SwifterBaseKit: 435f0f508c2c046d3beda35b61f3a9fe118d0303
 
 PODFILE CHECKSUM: 49ff56dba3aed3f86073c33e639a27f18488a269
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
